@@ -1,15 +1,44 @@
-'''
-NEWS GETTER
+import requests
 
-Get the top 5 headlines for a specific company
+class NewsGetter:
+    def __init__(self, api_key):
+        self.api_key = api_key
+        self.base_url = "https://api.dowjones.com/v2/news"
 
-For example get 5 headlines for NVDA
-Use the Dow Jones API:
-https://developer.dowjones.com/site/docs/newswires_apis/dow_jones_top_stories_api/index.gsp#overview-1
+    def get_top_headlines(self, company_name, count=5):
+        """
+        Get top headlines for a specific company.
 
-Output should be a container or strings (dictionary or array, whichever)
-This output will later be fed to the sentiment analysis program
+        Args:
+        - company_name (str): The name of the company to search for.
+        - count (int): Number of headlines to retrieve (default is 5).
 
-TO DO: Implement basic functionality for getting the top 5 headlines about DJT (Trump Media)
-- Hint use requests library to send GET request to API endpoint url
-'''
+        Returns:
+        - headlines (dict): A dictionary containing the top headlines and their sources.
+        """
+        params = {
+            'query': company_name,
+            'count': count,
+        }
+        headers = {
+            'Authorization': f'Bearer {self.api_key}',
+        }
+
+        response = requests.get(self.base_url, headers=headers, params=params)
+
+        if response.status_code == 200:
+            articles = response.json().get('articles', [])
+            headlines = {article['headline']: article['source'] for article in articles[:count]}
+            return headlines
+        else:
+            print(f"Error fetching news: {response.status_code} - {response.json().get('title')}")
+            return {}
+
+if __name__ == "__main__":
+    #dowjones apikey
+    news_getter = NewsGetter(api_key='your_api_key')
+    company_name = "Tesla"
+    headlines = news_getter.get_top_headlines(company_name)
+    print(f"Top 5 headlines for {company_name}:")
+    for headline, source in headlines.items():
+        print(f"- {headline} (Source: {source})")
