@@ -1,17 +1,14 @@
 '''
 NEWS GETTER
+This class is responsible for getting news from a given RSS Feed URL
 
-Get the top 5 headlines for a specific company
+Uses the requests library to get the XML response from the URL
+Uses the xml.etree.ElementTree library to parse the XML response
 
-For example get 5 headlines for NVDA
-Use the Dow Jones API:
-https://developer.dowjones.com/site/docs/newswires_apis/dow_jones_top_stories_api/index.gsp#overview-1
-
-Output should be a container or strings (dictionary or array, whichever)
 This output will later be fed to the sentiment analysis program
 
-TO DO: Implement basic functionality for getting the top 5 headlines about DJT (Trump Media)
-- Hint use requests library to send GET request to API endpoint url
+TO DO: 
+- Think about how to refactor Newsgetter class to work for larger inputs (e.g. dictionary of links)
 '''
 import requests
 import xml.etree.ElementTree as ET
