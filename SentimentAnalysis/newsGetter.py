@@ -13,13 +13,6 @@ TO DO:
 import requests
 import xml.etree.ElementTree as ET
 
-# r = requests.get('https://feeds.a.dj.com/rss/RSSMarketsMain.xml')
-# if r.status_code == 200:
-#     root = ET.fromstring(r.content) # Parse the XML response
-#     children = root[0] # Get the first child of the root to iterate through
-
-#     for child in children: # Iterate through the XML and print elements
-#         print(f"Tag: {child.tag}, Attributes: {child.attrib}, Text: {child.text}")
 class NewsGetter:
     def __init__(self, link):
         self.url = link
@@ -49,9 +42,11 @@ class NewsGetter:
 
 # Example usage
 if __name__ == '__main__':
-    url = 'https://feeds.a.dj.com/rss/RSSMarketsMain.xml'
+    
+
+    url = 'https://abcnews.go.com/abcnews/usheadlines'
     news_getter = NewsGetter(url)
     top_headlines = NewsGetter.get_top_headlines()
     top_headlines_with_descriptions = NewsGetter.get_headlines_with_descriptions(url)
     print(top_headlines)
-    print(top_headlines_with_descriptions)
+    #print(top_headlines_with_descriptions)
