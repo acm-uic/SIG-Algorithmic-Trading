@@ -3,17 +3,15 @@ Program to conduct sentiment analysis on strings and return an attitude value
 
 Output should either be a string like "Postive" or an integer like 1 representing positive attitude
 
-Use whatever dummy inputs you want for now. We will worry about input later.
-
-Use this resource as a starting point to see how to perform sentiment analysis on language
+Resource:
 https://blog.quantinsti.com/sentiment-analysis-trading/
 
-TO DO: Implement basic functionality for determining if a string input is positive, neutral, or negative
-Example: "I love dogs! They're great" should probably return "Positive" or 1.
+TO DO: 
+- Implement functiality for neutral sentiment
+- Connect output from newsGetter.py to this file and run sentiment analysis on the news articles
 
 '''
-
-# Getting dataset
+# Import packages
 import nltk
 from nltk.corpus import twitter_samples
 from nltk.corpus import stopwords
@@ -65,6 +63,16 @@ classifier = NaiveBayesClassifier.train(train_data)
 def sentiment_analysis(text):
     features = preprocess_tweet(text)
     sentiment = classifier.classify(features)
+    pos_tokens = 0
+    neg_tokens = 0
+    # This never does as intended, classifier is biased toward positive sentiment
+    # for token in features:
+    #     if token:
+    #         pos_tokens += 1
+    #     else:
+    #         neg_tokens += 1
+    # if pos_tokens == neg_tokens or pos_tokens == neg_tokens + 1:
+    #     sentiment = 'Neutral'
     return sentiment
 
 # Test the sentiment analysis
@@ -96,3 +104,9 @@ negative_count = 0
 
 test_text = "I love dogs! They're great"
 print(sentiment_analysis(test_text))
+test_text2 = "I hate cats! They're terrible"
+print(sentiment_analysis(test_text2))
+test_text3 = "I am neutral"
+print(sentiment_analysis(test_text3))
+test_text4 = "A variety of factors, encompassing both internal and external influences, contribute to the development of diverse perspectives and behaviors in individuals across different environments. These elements, while subject to variation depending on situational context, can include but are not limited to, cultural background, socioeconomic conditions, personal experiences, and the interplay between individual psychology and societal norms. By considering a wide range of influences and acknowledging the multifaceted nature of human decision-making processes, one can gain a more comprehensive understanding of the complexities that shape actions, thoughts, and attitudes."
+print(sentiment_analysis(test_text4))
