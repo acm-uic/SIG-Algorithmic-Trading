@@ -63,9 +63,10 @@ classifier = NaiveBayesClassifier.train(train_data)
 def sentiment_analysis(text):
     features = preprocess_tweet(text)
     sentiment = classifier.classify(features)
-    pos_tokens = 0
-    neg_tokens = 0
-    # This never does as intended, classifier is biased toward positive sentiment
+
+    # This doesn't work as intended, classifier defaults to positive
+    # pos_tokens = 0
+    # neg_tokens = 0
     # for token in features:
     #     if token:
     #         pos_tokens += 1
@@ -79,28 +80,30 @@ def sentiment_analysis(text):
 positive_count = 0
 negative_count = 0
 
-# Ignore this for now, I was testing some stuff
+'''
+Ignore this for now, I was testing some stuff
 
-# for tweet in test_data:
-#     text = tweet[0]
-#     print(tweet[0])
-#     actual_sentiment = tweet[1]
-#     predicted_sentiment = sentiment_analysis("$AAPL is my BEST investment so far. But it had some downsides.")
-#     print("Text:", text)
-#     print("Actual Sentiment:", actual_sentiment)
-#     print("Predicted Sentiment:", predicted_sentiment)
-#     print("---------------------------------------------\n\n\n")
+for tweet in test_data:
+    text = tweet[0]
+    print(tweet[0])
+    actual_sentiment = tweet[1]
+    predicted_sentiment = sentiment_analysis("$AAPL is my BEST investment so far. But it had some downsides.")
+    print("Text:", text)
+    print("Actual Sentiment:", actual_sentiment)
+    print("Predicted Sentiment:", predicted_sentiment)
+    print("---------------------------------------------\n\n\n")
         
-#     if predicted_sentiment == 'Positive':
-#         positive_count += 1
-#     elif predicted_sentiment == 'Negative':
-#         negative_count += 1
+    if predicted_sentiment == 'Positive':
+        positive_count += 1
+    elif predicted_sentiment == 'Negative':
+        negative_count += 1
     
-# print("Positive Count:", positive_count)
-# print("Negative Count:", negative_count)
+print("Positive Count:", positive_count)
+print("Negative Count:", negative_count)
 
-# accuracy = (positive_count + negative_count) / len(test_data)
-# print("Accuracy:", accuracy*100, "%")
+accuracy = (positive_count + negative_count) / len(test_data)
+print("Accuracy:", accuracy*100, "%")
+'''
 
 test_text = "I love dogs! They're great"
 print(sentiment_analysis(test_text))
