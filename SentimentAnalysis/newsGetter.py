@@ -16,7 +16,7 @@ import xml.etree.ElementTree as ET
 class NewsGetter:
     def __init__(self, link):
         self.url = link
-    def get_top_headlines():
+    def get_top_headlines(self):
         response = requests.get(url)
         if response.status_code == 200:
             root = ET.fromstring(response.content)
@@ -27,7 +27,7 @@ class NewsGetter:
             return headlines
         else:
             return []
-    def get_headlines_with_descriptions(url):
+    def get_headlines_with_descriptions(self):
         response = requests.get(url)
         if response.status_code == 200:
             root = ET.fromstring(response.content)
@@ -45,8 +45,10 @@ if __name__ == '__main__':
     
 
     url = 'https://abcnews.go.com/abcnews/usheadlines'
+    
     news_getter = NewsGetter(url)
-    top_headlines = NewsGetter.get_top_headlines()
-    top_headlines_with_descriptions = NewsGetter.get_headlines_with_descriptions(url)
+    
+    top_headlines = news_getter.get_top_headlines()
+    top_headlines_with_descriptions = news_getter.get_headlines_with_descriptions()
     print(top_headlines)
     #print(top_headlines_with_descriptions)
