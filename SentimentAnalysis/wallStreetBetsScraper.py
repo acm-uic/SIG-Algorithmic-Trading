@@ -1,7 +1,7 @@
 # Reddit API is used to scrape the hot posts from the wallstreetbets subreddit.
 # Intded for Sentiment Analysis of Wallstreetbets Reddit Posts
-CLIENT_ID = "YOUR CLIENT KEY"
-SECRET_KEY = "YOUR SECRET KEY"
+CLIENT_ID = "YOUR CLIENT"
+SECRET_KEY = "YOUR SECRET"
 
 import requests
 import json
