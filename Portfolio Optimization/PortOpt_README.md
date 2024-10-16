@@ -4,7 +4,7 @@
   - I really want to spearhead this as it is a good change of air + important topic/section that we need to cover
 
 # Plans + Goals
-  - A few modern portfolio management theories covered in [this academic paper based off of Harry Markowitz's "Portfolio Selection"]([url](https://www.sciencedirect.com/science/article/abs/pii/S0377221713008898))
+  - A few modern portfolio management theories covered in [this academic paper based off of Harry Markowitz's "Portfolio Selection"](https://www.sciencedirect.com/science/article/abs/pii/S0377221713008898)
       + [Risk-parity portfolio]([url](https://www.investopedia.com/terms/r/risk-parity.asp))
       + Multi-period portfolio optimization
       + CVaR + VaR: Monte Carlo Method
