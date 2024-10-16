@@ -1,7 +1,7 @@
 # Reddit API is used to scrape the hot posts from the wallstreetbets subreddit.
 # Intded for Sentiment Analysis of Wallstreetbets Reddit Posts
-CLIENT_ID = "G18X3v_teLmzHF5ImA2z_w"
-SECRET_KEY = "aG0mz4dcFOr8-2hVW_Gj1NbCQ7zAig"
+CLIENT_ID = "YOUR CLIENT"
+SECRET_KEY = "YOUR SECRET"
 
 import requests
 import json
@@ -14,8 +14,8 @@ auth = requests.auth.HTTPBasicAuth(CLIENT_ID, SECRET_KEY)
 
 login = {
     'grant_type': 'password',
-    'username': 'Mopann',
-    'password': 'H8terslive'
+    'username': 'YOUR USERNAME',
+    'password': 'YOUR PASSWORD'
 }
 
 headers = {'User-Agent': 'MyAPI/0.0.1'}

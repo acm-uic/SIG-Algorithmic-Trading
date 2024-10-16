@@ -21,7 +21,7 @@ from nltk.classify import NaiveBayesClassifier
 from nltk.sentiment import SentimentAnalyzer
 from nltk.sentiment.util import extract_unigram_feats
 import newsGetter
-
+import wallStreetBetsScraper
 
 
 # Download NLTK resources
@@ -80,47 +80,37 @@ def sentiment_analysis(text):
     return sentiment
 
 # Test the sentiment analysis
-positive_count = 0
-negative_count = 0
+# test_text = "I love dogs! They're great"
+# print(sentiment_analysis(test_text))
+# test_text2 = "I hate cats! They're terrible"
+# print(sentiment_analysis(test_text2))
+# test_text3 = "I am neutral"
+# print(sentiment_analysis(test_text3))
+# test_text4 = "A variety of factors, encompassing both internal and external influences, contribute to the development of diverse perspectives and behaviors in individuals across different environments. These elements, while subject to variation depending on situational context, can include but are not limited to, cultural background, socioeconomic conditions, personal experiences, and the interplay between individual psychology and societal norms. By considering a wide range of influences and acknowledging the multifaceted nature of human decision-making processes, one can gain a more comprehensive understanding of the complexities that shape actions, thoughts, and attitudes."
+# print(sentiment_analysis(test_text4))
+if __name__ == '__main__':
+    # Perform sentiment analysis on headlines from the Wall Street Journal
+    url = 'https://feeds.a.dj.com/rss/RSSMarketsMain.xml'
+    feed = newsGetter.parse_rss_feed(url)
+    headlines = newsGetter.get_headlines(feed)
+    headlines_with_descriptions = newsGetter.get_headlines_with_descriptions(feed)
 
-'''
-Ignore this for now, I was testing some stuff
+    print("Headlines:")
+    positive_count = 0
+    negative_count = 0
 
-for tweet in test_data:
-    text = tweet[0]
-    print(tweet[0])
-    actual_sentiment = tweet[1]
-    predicted_sentiment = sentiment_analysis("$AAPL is my BEST investment so far. But it had some downsides.")
-    print("Text:", text)
-    print("Actual Sentiment:", actual_sentiment)
-    print("Predicted Sentiment:", predicted_sentiment)
-    print("---------------------------------------------\n\n\n")
-        
-    if predicted_sentiment == 'Positive':
-        positive_count += 1
-    elif predicted_sentiment == 'Negative':
-        negative_count += 1
-    
-print("Positive Count:", positive_count)
-print("Negative Count:", negative_count)
+    for headline in headlines:
+        print(headline)
+        sentiment = sentiment_analysis(headline)
+        print(sentiment)
+        if (sentiment == 'Positive'):
+            positive_count += 1
+        elif (sentiment == 'Negative'):
+            negative_count += 1
+        print("\n")
+    print("Positive Count:", positive_count)
+    print("Negative Count:", negative_count)
+    print("Total Headlines:", len(headlines))
 
-accuracy = (positive_count + negative_count) / len(test_data)
-print("Accuracy:", accuracy*100, "%")
-'''
-
-test_text = "I love dogs! They're great"
-print(sentiment_analysis(test_text))
-test_text2 = "I hate cats! They're terrible"
-print(sentiment_analysis(test_text2))
-test_text3 = "I am neutral"
-print(sentiment_analysis(test_text3))
-test_text4 = "A variety of factors, encompassing both internal and external influences, contribute to the development of diverse perspectives and behaviors in individuals across different environments. These elements, while subject to variation depending on situational context, can include but are not limited to, cultural background, socioeconomic conditions, personal experiences, and the interplay between individual psychology and societal norms. By considering a wide range of influences and acknowledging the multifaceted nature of human decision-making processes, one can gain a more comprehensive understanding of the complexities that shape actions, thoughts, and attitudes."
-print(sentiment_analysis(test_text4))
-
-wsj_url = 'https://feeds.a.dj.com/rss/RSSMarketsMain.xml'
-
-wsj_market_object = newsGetter.NewsGetter(wsj_url)
-
-wsj_market_headlines = wsj_market_object.get_top_headlines()
-wsj_market_headlines_w_desc = wsj_market_object.get_headlines_with_descriptions()
-print(wsj_market_headlines_w_desc)
+    wsj_market_sentiment_assessment = "WSJ Markets feed is positive" if positive_count > negative_count else "WSJ Markets feed is negative"
+    print(wsj_market_sentiment_assessment)
