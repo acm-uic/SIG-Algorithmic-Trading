@@ -2,53 +2,36 @@
 NEWS GETTER
 This class is responsible for getting news from a given RSS Feed URL
 
-Uses the requests library to get the XML response from the URL
-Uses the xml.etree.ElementTree library to parse the XML response
+Used the feedparser library to parse the XML response from RSS feeds for news data. 
 
 This output will later be fed to the sentiment analysis program
 
 TO DO: 
 - Think about how to refactor Newsgetter class to work for larger inputs (e.g. dictionary of links)
 '''
-import requests
-import xml.etree.ElementTree as ET
 
-class NewsGetter:
-    def __init__(self, link):
-        self.url = link
-    def get_top_headlines(self):
-        response = requests.get(url)
-        if response.status_code == 200:
-            root = ET.fromstring(response.content)
-            headlines = []
-            for item in root.findall('.//item'):
-                title = item.find('title').text
-                headlines.append(title)
-            return headlines
-        else:
-            return []
-    def get_headlines_with_descriptions(self):
-        response = requests.get(url)
-        if response.status_code == 200:
-            root = ET.fromstring(response.content)
-            headlines_with_descriptions = []
-            for item in root.findall('.//item'):
-                title = item.find('title').text
-                description = item.find('description').text
-                headlines_with_descriptions.append({'title': title, 'description': description})
-            return headlines_with_descriptions
-        else:
-            return
+import feedparser
 
-# Example usage
+def parse_rss_feed(url):
+    feed = feedparser.parse(url)
+    return feed
+
+def get_headlines(feed):
+    headlines = []
+    for entry in feed.entries:
+        headlines.append(entry.title)
+    return headlines
+
+def get_headlines_with_descriptions(feed):
+    headlines_with_descriptions = []
+    for entry in feed.entries:
+        headlines_with_descriptions.append({'title': entry.title, 'description': entry.summary})
+    return headlines_with_descriptions
+
 if __name__ == '__main__':
-    
-
-    url = 'https://abcnews.go.com/abcnews/usheadlines'
-    
-    news_getter = NewsGetter(url)
-    
-    top_headlines = news_getter.get_top_headlines()
-    top_headlines_with_descriptions = news_getter.get_headlines_with_descriptions()
-    print(top_headlines)
-    #print(top_headlines_with_descriptions)
+    wsj_url = 'https://feeds.a.dj.com/rss/RSSMarketsMain.xml'
+    feed = parse_rss_feed(wsj_url)
+    headlines = get_headlines(feed)
+    headlines_with_descriptions = get_headlines_with_descriptions(feed)
+    print(headlines)
+    print(headlines_with_descriptions)

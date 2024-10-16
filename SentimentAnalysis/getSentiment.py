@@ -20,6 +20,9 @@ from nltk.stem import PorterStemmer
 from nltk.classify import NaiveBayesClassifier
 from nltk.sentiment import SentimentAnalyzer
 from nltk.sentiment.util import extract_unigram_feats
+import newsGetter
+
+
 
 # Download NLTK resources
 nltk.download('twitter_samples')
@@ -113,3 +116,11 @@ test_text3 = "I am neutral"
 print(sentiment_analysis(test_text3))
 test_text4 = "A variety of factors, encompassing both internal and external influences, contribute to the development of diverse perspectives and behaviors in individuals across different environments. These elements, while subject to variation depending on situational context, can include but are not limited to, cultural background, socioeconomic conditions, personal experiences, and the interplay between individual psychology and societal norms. By considering a wide range of influences and acknowledging the multifaceted nature of human decision-making processes, one can gain a more comprehensive understanding of the complexities that shape actions, thoughts, and attitudes."
 print(sentiment_analysis(test_text4))
+
+wsj_url = 'https://feeds.a.dj.com/rss/RSSMarketsMain.xml'
+
+wsj_market_object = newsGetter.NewsGetter(wsj_url)
+
+wsj_market_headlines = wsj_market_object.get_top_headlines()
+wsj_market_headlines_w_desc = wsj_market_object.get_headlines_with_descriptions()
+print(wsj_market_headlines_w_desc)
