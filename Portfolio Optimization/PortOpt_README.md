@@ -10,7 +10,6 @@
       + CVaR + VaR: Monte Carlo Method
       + [Asset allocation using Convex Optimization] (https://medium.com/where-quant-meets-data-science/asset-allocation-using-convex-portfolio-optimization-f47398d4d613)
       + [Capital Asset Pricing Model (CAPM)](https://www.investopedia.com/terms/c/capm.asp)
-      + etc.
   - Combine models and knowledge developed here to expand QTC
       + PMT is looking to expand on a "Portfolio Manangement" sector
       + Attend competitions (feel free to add some here in this README file)
