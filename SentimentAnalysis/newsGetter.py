@@ -7,7 +7,7 @@ Used the feedparser library to parse the XML response from RSS feeds for news da
 This output will later be fed to the sentiment analysis program
 
 TO DO: 
-- Think about how to refactor Newsgetter class to work for larger inputs (e.g. dictionary of links)
+- Think about how to refactor Newsgetter class to work for larger inputs (e.g. dictionary of RSS feeds)
 '''
 
 import feedparser
