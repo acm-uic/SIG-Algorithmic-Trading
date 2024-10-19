@@ -18,6 +18,7 @@ Zayd Alzein \
 Rahul Gowda \
 Edward Weng \
 Tuong Max Le
+Dong June Park \
 
 # How to Contribute
 See "issues" tab above and address whichever one you want. Instructions and guidance are provided in the files as comments.
