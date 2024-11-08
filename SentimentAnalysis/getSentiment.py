@@ -21,7 +21,7 @@ from nltk.classify import NaiveBayesClassifier
 from nltk.sentiment import SentimentAnalyzer
 from nltk.sentiment.util import extract_unigram_feats
 import newsGetter
-import wallStreetBetsScraper
+#import wallStreetBetsScraper
 
 
 # Download NLTK resources
@@ -116,16 +116,16 @@ if __name__ == '__main__':
     print(wsj_market_sentiment_assessment)
 
     # Perform sentiment analysis on posts from the WallStreetBets subreddit
-    hot_posts = wallStreetBetsScraper.read_hot_posts()
-    print("Posts:")
-    for post in hot_posts['data']['children']:
-        title = post['data']['title']
-        title_sentiment = sentiment_analysis(title)
-        print(title_sentiment)
-        if (title_sentiment == 'Positive'):
-            positive_count += 1
-        elif (title_sentiment == 'Negative'):
-            negative_count += 1
-        print("\n")
-    positive_count = 0
-    negative_count = 0
+    # hot_posts = wallStreetBetsScraper.read_hot_posts()
+    # print("Posts:")
+    # for post in hot_posts['data']['children']:
+    #     title = post['data']['title']
+    #     title_sentiment = sentiment_analysis(title)
+    #     print(title_sentiment)
+    #     if (title_sentiment == 'Positive'):
+    #         positive_count += 1
+    #     elif (title_sentiment == 'Negative'):
+    #         negative_count += 1
+    #     print("\n")
+    # positive_count = 0
+    # negative_count = 0

@@ -2,6 +2,9 @@ import yfinance as yf
 import pandas as pd
 from statsmodels.tsa.stattools import adfuller
 
+# IGNORE THIS FILE FOR NOW
+# SEE adf_test.py FOR THE CORRECT IMPLEMENTATION
+
 # Function to download stock data
 def download_data(tickers, start_date, end_date):
     data = yf.download(tickers, start=start_date, end=end_date)['Adj Close']

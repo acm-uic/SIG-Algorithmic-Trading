@@ -9,13 +9,16 @@ import numpy as np
 # test_statistic = test[0]
 # p_value = test[1]
 
+# Get tickers from S&P 500 and return them as a list
 def get_sp500_tickers():
     sp500_tickers = pd.read_html('https://en.wikipedia.org/wiki/List_of_S%26P_500_companies')[0]['Symbol'].to_list()
     return sp500_tickers
 
+# This function downloads the stock data for a given ticker and performs the ADF test
 def stationaryTest(ticker, start_date, end_date):
     try:
         stock_data = yf.download(ticker, start=start_date, end=end_date)
+        print("Downloading data for: ", ticker)
         close_prices = stock_data['Close'].dropna().to_numpy()
 
         if len(close_prices) < 2:
@@ -38,20 +41,53 @@ def stationaryTest(ticker, start_date, end_date):
 
 tickers = get_sp500_tickers() 
 
-for ticker in tickers[:100]:
-    result = stationaryTest(ticker, '2023-01-01', '2024-01-01')
-    
-    if 'error' in result:
-        print(f"Error for {result['ticker']}: {result['error']}")
-    else:
-        print(f"{result['ticker']} ADF Test statistic: {result ['test_stat']}")
-        if result['p_value'] is not None:
-            print(f"P-value: {result ['p_value']}")
+# This function goes through the first 100 stocks in the S&P 500 and performs the ADF test on each stock
+def test_stationary(tickers): 
+    for ticker in tickers[:100]:
+        result = stationaryTest(ticker, '2023-01-01', '2024-01-01')
+        
+        if 'error' in result:
+            print(f"Error for {result['ticker']}: {result['error']}")
         else:
-            print("P-value: N/A")
+            print(f"{result['ticker']} ADF Test statistic: {result ['test_stat']}")
+            if result['p_value'] is not None:
+                print(f"P-value: {result ['p_value']}")
+            else:
+                print("P-value: N/A")
 
-    ifStationary = "False" if result ['Is_Stationary: '] == np.False_ else "True"
-    print("Is Stationary: " + ifStationary)
+        ifStationary = "False" if result ['Is_Stationary: '] == np.False_ else "True"
+        print("Is Stationary: " + ifStationary)
+
+# This function goes through all the stocks in the S&P 500 and returns a list of all the stocks that are stationary
+# start_date and end_date are the dates for which the ADF test is performed
+# Looks like '2023-01-01' or '2024-01-01'
+# tickers is an array of tickers
+def find_stationary_tickers_SandP500(tickers, start_date, end_date):
+    stationary_tickers = []
+    for ticker in tickers:
+        result = stationaryTest(ticker, start_date, end_date)
+        if result['Is_Stationary: ']:
+            stationary_tickers.append(result['ticker'])
+    return stationary_tickers
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

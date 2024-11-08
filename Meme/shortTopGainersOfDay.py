@@ -3,32 +3,29 @@ import pandas as pd
 from datetime import datetime, timedelta
 
 # Meme strategy (short top 5 highest gainers of the day, hold under end of week, exit trade)
-def get_top_gainers():
-    # Fetch the top gainers of the day
-    gainers = pd.read_html('https://finance.yahoo.com/markets/stocks/gainers/')
-    top_5_gainers = gainers[0].head(5)
-    return top_5_gainers
+def get_top_gainers(date):
+    # This function should return the top 5 gainers for the given date
+    # For simplicity, let's assume it returns a list of tickers
+    # In a real scenario, you would fetch this data from a reliable source
+    return ["MSFT", "GOOGL", "AMZN", "TSLA"]
 
-def short_stocks(symbols):
-    for symbol in symbols:
-        print(f"Shorting stock: {symbol}")
+def backtest_strategy(start_date, end_date):
+    current_date = start_date
+    results = []
 
-def exit_trades(symbols):
-    for symbol in symbols:
-        print(f"Exiting trade for: {symbol}")
+    while current_date <= end_date:
+        if current_date.weekday() == 0:  # Monday
+            top_gainers = get_top_gainers(current_date - timedelta(days=3))  # Get top gainers of last Friday
+            entry_prices = {ticker: yf.download(ticker, start=current_date, end=current_date + timedelta(days=1))['Close'][0] for ticker in top_gainers}
+            exit_date = current_date + timedelta(days=4)  # Hold until Friday
+            exit_prices = {ticker: yf.download(ticker, start=exit_date, end=exit_date + timedelta(days=1))['Close'][0] for ticker in top_gainers}
+            weekly_return = sum((entry_prices[ticker] - exit_prices[ticker]) / entry_prices[ticker] for ticker in top_gainers) / len(top_gainers)
+            results.append((current_date, weekly_return))
+        current_date += timedelta(days=1)
 
-def main():
-    # today = datetime.now()
-    # end_of_week = today + timedelta(days=(4 - today.weekday()))
+    return pd.DataFrame(results, columns=["Week Start", "Weekly Return"])
 
-    # top_gainers = get_top_gainers()
-    # short_stocks(top_gainers)
-
-    # while datetime.now() < end_of_week:
-    #     pass  # Hold until end of week
-
-    # exit_trades(top_gainers)
-    print(get_top_gainers())
-
-if __name__ == "__main__":
-    main()
+start_date = datetime(2023, 1, 1)
+end_date = datetime.today()
+backtest_results = backtest_strategy(start_date, end_date)
+print(backtest_results)
